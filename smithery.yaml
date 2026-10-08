@@ -1,0 +1,19 @@
+# Smithery deployment config for agent-checkout-mcp.
+# After this file is committed, claim the listing at smithery.ai:
+# sign in with GitHub -> "Add Server" -> paste https://github.com/oidsdev/agent-checkout-mcp
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - apiKey
+    properties:
+      apiKey:
+        type: string
+        description: "Agent Checkout API key — free at https://checkout.ignitionfoundry.com (POST /v1/keys). 100 links/day, no card required."
+  commandFunction: |-
+    (config) => ({
+      command: 'uvx',
+      args: ['agent-checkout-mcp'],
+      env: { AGENT_CHECKOUT_API_KEY: config.apiKey }
+    })
