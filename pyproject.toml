@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-checkout-mcp"
+version = "1.0.0"
+description = "MCP server for Agent Checkout — create real Stripe payment links from AI agents"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Orbital Desk LLC" }]
+keywords = ["mcp", "model-context-protocol", "stripe", "payments", "ai-agents"]
+
+[project.scripts]
+agent-checkout-mcp = "server:main"
+
+[tool.setuptools]
+py-modules = ["server"]
