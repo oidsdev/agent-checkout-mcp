@@ -136,12 +136,16 @@ def main():
             reply({"protocolVersion": "2024-11-05",
                    "capabilities": {"tools": {}},
                    "serverInfo": {"name": "agent-checkout", "version": "1.0.0"}})
-        elif method == "notifications/initialized":
-            continue
+        elif method == "ping":
+            reply({})
         elif method == "tools/list":
             reply({"tools": [
                 {"name": n, **spec} for n, spec in TOOLS.items()
             ]})
+        elif method == "resources/list":
+            reply({"resources": []})
+        elif method == "prompts/list":
+            reply({"prompts": []})
         elif method == "tools/call":
             name = msg.get("params", {}).get("name")
             args = msg.get("params", {}).get("arguments", {}) or {}
@@ -158,6 +162,10 @@ def main():
                 reply(error=f"bad arguments: {e}")
             except Exception as e:
                 reply(error=str(e))
+        elif method and method.startswith("notifications/"):
+            continue
+        elif mid is None:
+            continue
         else:
             reply(error=f"unknown method: {method}")
 

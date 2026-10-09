@@ -35,6 +35,20 @@ Add to your MCP client config (Claude Desktop, Cursor, etc.):
 
 Free tier: 100 links/day, no card required.
 
+## Smithery bundle
+
+[`agent-checkout-mcp.mcpb`](agent-checkout-mcp.mcpb) is the stdio bundle. Open it in Claude Desktop, or upload it when you publish the server on Smithery. Install asks for an Agent Checkout API key and sets `AGENT_CHECKOUT_API_KEY`.
+
+Rebuild from the repo root:
+
+```bash
+zip agent-checkout-mcp.mcpb manifest.json server.py pyproject.toml
+```
+
+## Docker
+
+Glama builds the root `Dockerfile` (`python:3.12-slim`, `server.py` and `pyproject.toml` only) and checks that the process answers MCP `initialize` and `tools/list` on stdio.
+
 ## How the money flows
 
 1. Your agent calls `create_checkout_link` with a price and product name.

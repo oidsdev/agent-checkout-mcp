@@ -1,0 +1,55 @@
+{
+  "manifest_version": "0.3",
+  "name": "agent-checkout-mcp",
+  "display_name": "Agent Checkout",
+  "version": "1.0.0",
+  "description": "Create real Stripe payment links from any MCP client. The agent finds the product; the human pays.",
+  "author": {
+    "name": "Orbital Desk LLC",
+    "url": "https://checkout.ignitionfoundry.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oidsdev/agent-checkout-mcp"
+  },
+  "homepage": "https://checkout.ignitionfoundry.com",
+  "support": "https://github.com/oidsdev/agent-checkout-mcp/issues",
+  "license": "MIT",
+  "keywords": ["mcp", "stripe", "checkout"],
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "python": ">=3.9"
+    }
+  },
+  "server": {
+    "type": "python",
+    "entry_point": "server.py",
+    "mcp_config": {
+      "command": "python",
+      "args": ["${__dirname}/server.py"],
+      "env": {
+        "AGENT_CHECKOUT_API_KEY": "${user_config.apiKey}"
+      }
+    }
+  },
+  "user_config": {
+    "apiKey": {
+      "type": "string",
+      "title": "Agent Checkout API key",
+      "description": "Free at https://checkout.ignitionfoundry.com (POST /v1/keys). 100 links/day.",
+      "sensitive": true,
+      "required": true
+    }
+  },
+  "tools": [
+    {
+      "name": "create_checkout_link",
+      "description": "Create a Stripe payment link your operator can click to pay."
+    },
+    {
+      "name": "check_link_status",
+      "description": "Check whether a payment link has been paid yet."
+    }
+  ]
+}
